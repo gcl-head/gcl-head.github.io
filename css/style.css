@@ -796,21 +796,23 @@ body {
 }
 #header-post ::-webkit-scrollbar-thumb {
 /*滚动条里面的小方块*/
-  background: #666;
+  background: #ccc;
   border-radius: 5px;
 }
 #header-post ::-webkit-scrollbar-track {
 /*滚动条轨道的样式*/
-  background: #ccc;
+  background: #666;
   border-radius: 5px;
 }
 #header-post #toc {
-  clear: both;
-  text-align: right;
-  width: 17rem;
-  max-height: 20rem;
-  overflow: auto;
   float: right;
+  clear: both;
+  overflow: auto;
+  margin-top: 1rem;
+  padding-right: 2rem;
+  max-width: 20em;
+  max-height: calc(65vh - 7rem);
+  text-align: right;
 }
 #header-post #toc a:hover {
   color: #d41c46;
@@ -974,9 +976,10 @@ body {
 }
 #footer-post #toc-footer {
   clear: both;
+  clear: both;
   text-align: left;
   padding-top: 1rem;
-  max-height: 15rem;
+  max-height: 50vh;
   overflow: auto;
 }
 #footer-post #toc-footer ol {
