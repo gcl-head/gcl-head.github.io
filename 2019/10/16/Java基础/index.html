@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1. 类型转换 在算法题中经常需要进行类型的转换，这里总结常见的类型之间互相转换的方式   int to String  String str &#x3D; num + &quot;&quot;;  String str &#x3D; String.valueOf(num);    Integer to String  String str &#x3D; String.valueOf(i);   String to int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础">
+<meta property="og:url" content="http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="ImBighead">
+<meta property="og:description" content="1. 类型转换 在算法题中经常需要进行类型的转换，这里总结常见的类型之间互相转换的方式   int to String  String str &#x3D; num + &quot;&quot;;  String str &#x3D; String.valueOf(num);    Integer to String  String str &#x3D; String.valueOf(i);   String to int">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://dl.iteye.com/upload/picture/pic/137529/c092c1c9-e167-3132-b865-2f4778b7d91b.png">
+<meta property="article:published_time" content="2019-10-16T04:14:21.000Z">
+<meta property="article:modified_time" content="2020-10-06T08:53:21.000Z">
+<meta property="article:author" content="bighead">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="thread">
+<meta property="article:tag" content="collections">
+<meta property="article:tag" content="extends">
+<meta property="article:tag" content="interface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dl.iteye.com/upload/picture/pic/137529/c092c1c9-e167-3132-b865-2f4778b7d91b.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Java基础</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="ImBighead" type="application/atom+xml" />
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">ImBighead</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+          <li><a href="/home/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/10/15/%E7%AC%94%E8%AF%95%E6%8A%B1%E4%BD%9B%E8%84%9A/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&text=Java基础"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&is_video=false&description=Java基础"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java基础&body=Check out this article: http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&name=Java基础&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.</span> <span class="toc-text">1. 类型转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E6%9D%83%E9%99%90"><span class="toc-number">2.</span> <span class="toc-text">2. 访问控制权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%BB%A7%E6%89%BF%E3%80%81%E6%8E%A5%E5%8F%A3%E5%92%8C%E5%A4%9A%E6%80%81"><span class="toc-number">3.</span> <span class="toc-text">3. 继承、接口和多态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">3.1.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.2.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">3.3.</span> <span class="toc-text">多态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8Collections-sort-%E6%8E%92%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">4. 使用Collections.sort()排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Collections-sort-%E6%8E%92%E5%BA%8F%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">1. Collections.sort()排序原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8Collections-sort-%E6%9D%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">4.2.</span> <span class="toc-text">2. 使用Collections.sort()来排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0Comparable%E6%8E%A5%E5%8F%A3"><span class="toc-number">4.2.1.</span> <span class="toc-text">实现Comparable接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Comparator%E6%AF%94%E8%BE%83%E5%99%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用Comparator比较器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Java%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">5. Java多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">1. 多线程基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thread"><span class="toc-number">5.1.1.</span> <span class="toc-text">Thread</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Runnable"><span class="toc-number">5.1.2.</span> <span class="toc-text">Runnable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8synchronized%E5%85%B3%E9%94%AE%E8%AF%8D%E6%9D%A5%E9%98%B2%E6%AD%A2%E7%BA%BF%E7%A8%8B%E7%AB%9E%E4%BA%89%E5%90%8C%E4%B8%80%E8%B5%84%E6%BA%90"><span class="toc-number">5.2.</span> <span class="toc-text">2. 使用synchronized关键词来防止线程竞争同一资源</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Java基础
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ImBighead</span>
+      </span>
+      
+        <i class="fa fa-arrow-up"></i>
+      
+      
+    <div class="postdate">
+        <time datetime="2020-10-06T08:53:21.000Z" itemprop="datePublished">2020-10-06</time>
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa fa-bars"></i>
+        <a class="tag-link-link" href="/categories/algorithm/" rel="tag">algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/collections/" rel="tag">collections</a>, <a class="tag-link-link" href="/tags/extends/" rel="tag">extends</a>, <a class="tag-link-link" href="/tags/interface/" rel="tag">interface</a>, <a class="tag-link-link" href="/tags/java/" rel="tag">java</a>, <a class="tag-link-link" href="/tags/thread/" rel="tag">thread</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="1-类型转换"><a href="#1-类型转换" class="headerlink" title="1. 类型转换"></a>1. 类型转换</h1><blockquote>
+<p>在算法题中经常需要进行类型的转换，这里总结常见的类型之间互相转换的方式</p>
+</blockquote>
+<ul>
+<li><p>int to String</p>
+<ul>
+<li><p><code>String str = num + &quot;&quot;;</code></p>
+</li>
+<li><p><code>String str = String.valueOf(num);</code></p>
+</li>
+</ul>
+</li>
+<li><p>Integer to String</p>
+<ul>
+<li><code>String str = String.valueOf(i);</code></li>
+</ul>
+</li>
+<li><p>String to int</p>
+<ul>
+<li><code>int num = Integer.parseInt(str);</code></li>
+</ul>
+</li>
+<li><p>String to Integer</p>
+<ul>
+<li><code>Integer i = Integer.valueOf(str);</code></li>
+</ul>
+</li>
+<li><p>Integer to int</p>
+<ul>
+<li><code>int num = i.intValue();</code></li>
+</ul>
+</li>
+<li><p>int to Integer</p>
+<ul>
+<li><code>Integer i = new Integer(num);</code></li>
+</ul>
+</li>
+<li><p>char to int</p>
+<ul>
+<li><code>int num = c - &#39;0&#39;; // 计算出和0的ACill值的差值</code></li>
+</ul>
+</li>
+<li><p>int to char</p>
+<ul>
+<li><code>char c = num + &#39;0&#39;;</code><h1 id="2-访问控制权限"><a href="#2-访问控制权限" class="headerlink" title="2. 访问控制权限"></a>2. 访问控制权限</h1></li>
+</ul>
+</li>
+</ul>
+<p>​    Java中有四种权限，访问限制从大到小依次为private,default,protected,public。具体的访问权限范围可见如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">权限</th>
+<th align="center">类内</th>
+<th align="center">同包</th>
+<th align="center">异包子类</th>
+<th align="center">异包非子类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">private</td>
+<td align="center">√</td>
+<td align="center">×</td>
+<td align="center">×</td>
+<td align="center">×</td>
+</tr>
+<tr>
+<td align="center">default</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">×</td>
+<td align="center">×</td>
+</tr>
+<tr>
+<td align="center">protected</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">×</td>
+</tr>
+<tr>
+<td align="center">public</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
+<h1 id="3-继承、接口和多态"><a href="#3-继承、接口和多态" class="headerlink" title="3. 继承、接口和多态"></a>3. 继承、接口和多态</h1><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>​    继承就是保持已有类的特性而构造新类的过程。继承后子类能够使用父类中定义的变量和方法。</p>
+<p>​    Java的继承是单继承，一个类只能同时拥有一个父类。如果想要让一个类同时继承多个父类的特性，可以选择串联继承，即A类作为B类的父类、B类作为C类的父类，这样C类就一定程度上拥有了A类和B类的特性。</p>
+<p>​    继承的关键词是extends，不用该关键词则默认继承Object类。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>​    若想让一个类同时继承多个类，可以选择使用接口。当父类非常抽象的时候，我们可以选择将它定义为接口。接口只能定义静态变量和抽象方法且不需要定义构造函数，具体功能需要由子类去继承和扩展。</p>
+<p>​    接口的定义关键词是interface，实现关键词是implements。</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>​    多态指的是一个接口在传入不同实例时会执行不用的操作。原理就是当父类指向不同子类调用同一个方法的时候，会根据子类是否改写该方法来实现不同的功能（如果父类没有该方法则会报错）。具体如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Father</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;This is Father constructor!&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.a = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> aa)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Father fun1:&quot;</span>+aa);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">showA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Son</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(a);</span><br><span class="line">        System.out.println(<span class="string">&quot;This is Son constructor!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;son fun2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Daughter</span> <span class="keyword">extends</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Daughter</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(a);</span><br><span class="line">        System.out.println(<span class="string">&quot;This is Daughter constructor!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> aa)</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;Daughter fun1\n&quot;</span>);</span><br><span class="line">        <span class="keyword">super</span>.fun1(aa);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">funTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Father s = <span class="keyword">new</span> Son(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// This is Father constructor!</span></span><br><span class="line">        <span class="comment">// This is Son constructor!</span></span><br><span class="line">        Father d = <span class="keyword">new</span> Daughter(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">// This is Father constructor!</span></span><br><span class="line">        <span class="comment">// This is Daughter constructor!</span></span><br><span class="line">        s.fun1(s.showA());</span><br><span class="line">        <span class="comment">// Father fun1:1</span></span><br><span class="line">        <span class="comment">// s.fun2();</span></span><br><span class="line">        <span class="comment">// 报错</span></span><br><span class="line">        d.fun1(d.showA());</span><br><span class="line">        <span class="comment">// Daughter fun1</span></span><br><span class="line">        <span class="comment">// Father fun1:2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-使用Collections-sort-排序"><a href="#4-使用Collections-sort-排序" class="headerlink" title="4. 使用Collections.sort()排序"></a>4. 使用Collections.sort()排序</h1><blockquote>
+<p>在java中经常需要对list进行排序，而直接调用Collections.sort()相比手动写排序函数则要方便许多。本篇将详述该函数的使用方法。</p>
+</blockquote>
+<h2 id="1-Collections-sort-排序原理"><a href="#1-Collections-sort-排序原理" class="headerlink" title="1. Collections.sort()排序原理"></a>1. Collections.sort()排序原理</h2><p>​    事实上<code>Collections.sort()</code>方法底层就是调用的Arrays.sort方法，而Arrays.sort使用了两种排序方法，快速排序和优化的归并排序。</p>
+<p>​    快速排序主要是对那些基本类型数据（int,short,long等）排序， 而归并排序用于对Object类型进行排序。<br>使用不同类型的排序算法主要是由于快速排序是不稳定的，而归并排序是稳定的。这里的稳定是指比较相等的数据在排序之后仍然按照排序之前的前后顺序排列。对于基本数据类型，稳定性没有意义，而对于Object类型，稳定性是比较重要的，因为对象相等的判断可能只是判断关键属性，最好保持相等对象的非关键属性的顺序与排序前一致；另外一个原因是由于归并排序相对而言比较次数比快速排序少，移动（对象引用的移动）次数比快速排序多，而对于对象来说，比较一般比移动耗时。<br>​    此外，对大数组排序。快速排序的sort()采用递归实现，数组规模太大时会发生堆栈溢出，而归并排序sort()采用非递归实现，不存在此问题。</p>
+<p>​    具体来说，使用<code>Collections.sort()</code>排序首先先判断需要排序的数据量是否大于60：<br>​        <strong>小于60</strong>：使用插入排序，插入排序是稳定的<br>​        <strong>大于60</strong>：根据数据类型选择排序方式：<br>​            <strong>对于基本类型</strong>：使用快速排序。因为基本类型都是指向同一个常量池不需要考虑稳定性。<br>​            <strong>对于Object类型</strong>：使用归并排序。因为归并排序具有稳定性。<br>​    另外，不管是快速排序还是归并排序。在二分的时候小于60的数据量依旧会使用插入排序</p>
+<p>​    所以，可以看出<code>Collections.sort()</code>是在对于所要排序的数据类型和大小进行了充分判断以后再选择最优的排序方法进行排序的。我们完全可以放心地把自己的数据交给他去排序而不用担心性能上有太大的问题。</p>
+<h2 id="2-使用Collections-sort-来排序"><a href="#2-使用Collections-sort-来排序" class="headerlink" title="2. 使用Collections.sort()来排序"></a>2. 使用Collections.sort()来排序</h2><blockquote>
+<p> 使用<code>Collections.sort()</code>要求被排序变量类型实现了Comparable接口或者有Comparator比较器。</p>
+</blockquote>
+<h3 id="实现Comparable接口"><a href="#实现Comparable接口" class="headerlink" title="实现Comparable接口"></a>实现Comparable接口</h3><p>首先在要排序的类中实现Comparable接口:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataForm</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">DataForm</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DataForm</span><span class="params">(String name, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;name:&quot;</span>+name+<span class="string">&quot;--value:&quot;</span>+value; <span class="comment">// 重写转字符串方法，方便展示</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(DataForm a)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        return value-a.getValue(); // 比较value大小，升序</span></span><br><span class="line"><span class="comment">//        return a.getValue()-value; // 比较value大小，降序</span></span><br><span class="line"><span class="comment">//        return value.compareTo(a.getValue()); // 调用Integer的compareTo进行比较，升序</span></span><br><span class="line">        <span class="keyword">return</span> a.getValue().compareTo(value); <span class="comment">// 调用Integer的compareTo进行比较，降序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在代码中便可以直接使用<code>Collections.sort()</code>来对list进行排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;DataForm&gt; a = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;a&quot;</span>, <span class="number">1</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;b&quot;</span>, <span class="number">2</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;c&quot;</span>, <span class="number">3</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;d&quot;</span>, <span class="number">4</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;e&quot;</span>, <span class="number">5</span>));</span><br><span class="line">System.out.println(a.toString());</span><br><span class="line"><span class="comment">// [name:a--value:1, name:b--value:2, name:c--value:3, name:d--value:4, name:e--value:5]</span></span><br><span class="line">Collections.sort(a);</span><br><span class="line">System.out.println(a.toString());</span><br><span class="line"><span class="comment">// [name:e--value:5, name:d--value:4, name:c--value:3, name:b--value:2, name:a--value:1]</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用Comparator比较器"><a href="#使用Comparator比较器" class="headerlink" title="使用Comparator比较器"></a>使用Comparator比较器</h3><p>如果被比较的类没有实现Comparable接口，也可以在<code>Collections.sort()</code>的第二个参数位直接传入一个Comparator比较器来实现排序的功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;DataForm&gt; a = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;a&quot;</span>, <span class="number">1</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;b&quot;</span>, <span class="number">2</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;c&quot;</span>, <span class="number">3</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;d&quot;</span>, <span class="number">4</span>));</span><br><span class="line">a.add(<span class="keyword">new</span> DataForm(<span class="string">&quot;e&quot;</span>, <span class="number">5</span>));</span><br><span class="line">System.out.println(a.toString());</span><br><span class="line"><span class="comment">// [name:a--value:1, name:b--value:2, name:c--value:3, name:d--value:4, name:e--value:5]</span></span><br><span class="line">Collections.sort(a, <span class="keyword">new</span> Comparator&lt;DataForm&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(DataForm dataForm, DataForm t1)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// return dataForm.getValue()-t1.getValue(); // 比较value大小，升序</span></span><br><span class="line">        <span class="comment">// return t1.getValue()-dataForm.getValue(); // 比较value大小，降序</span></span><br><span class="line">        <span class="comment">// return dataForm.getValue().compareTo(t1.getValue()); // 调用Integer的compareTo进行比较，升序</span></span><br><span class="line">        <span class="keyword">return</span> t1.getValue().compareTo(dataForm.getValue()); <span class="comment">// 调用Integer的compareTo进行比较，降序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(a.toString());</span><br><span class="line"><span class="comment">// [name:e--value:5, name:d--value:4, name:c--value:3, name:b--value:2, name:a--value:1]</span></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>使用Comparable还是Comparator在性能上并没有太大的差别。前者是在类内进行实现，完成以后该类边成为了一个可比较的类了。但需要修改源代码，在很多情况下并不通用。而后者不需要修改源代码，用户可以自己实现比较的逻辑，并且可复用。因此使用哪种方式还是取决于实际的使用环境。</p>
+</blockquote>
+<h1 id="5-Java多线程"><a href="#5-Java多线程" class="headerlink" title="5. Java多线程"></a>5. Java多线程</h1><blockquote>
+<p>Java多线程的运用十分广泛，用好了可以大大提高程序的运行效率。但多线程之间往往会产生各种冲突，学会如何让多线程互相协作，高效率的完成工作，也是一门学问。本篇将持续更新，讲解自己在日常使用中了解到的多线程的经验和小窍门。</p>
+</blockquote>
+<h2 id="1-多线程基本语法"><a href="#1-多线程基本语法" class="headerlink" title="1. 多线程基本语法"></a>1. 多线程基本语法</h2><p>Java中的多线程主要有两种启动方法，直接继承<strong>Thread</strong>类并调用start()方法或者继承<strong>Runnable</strong>接口。</p>
+<h3 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">thread_test</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(getName()+<span class="string">&quot; &quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        thread_test t = <span class="keyword">new</span> thread_test();</span><br><span class="line">        t.start();</span><br><span class="line">        t.start(); <span class="comment">// 报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于Java<strong>单继承</strong>的特性，利用<strong>Thread</strong>操作多线程没有办法重复调用一个线程。因此程序的复用性较差。</p>
+<h3 id="Runnable"><a href="#Runnable" class="headerlink" title="Runnable"></a>Runnable</h3><p><strong>Runnable</strong>接口则完全没有这方面的问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">runnable_small_test</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot; &quot;</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        runnable_small_test t = <span class="keyword">new</span> runnable_small_test();</span><br><span class="line">        <span class="keyword">new</span> Thread(t).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(t).start(); <span class="comment">// 不会报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用synchronized关键词来防止线程竞争同一资源"><a href="#2-使用synchronized关键词来防止线程竞争同一资源" class="headerlink" title="2. 使用synchronized关键词来防止线程竞争同一资源"></a>2. 使用synchronized关键词来防止线程竞争同一资源</h2><blockquote>
+<p>如果有两个或两个以上线程同时对一个线程不安全的变量进行操作就可能出现不可预知的错误。比如同时对一个整型做<code>++1</code>的操作，可能该整型最后只进行了一次<code>++1</code>。对于这种情况，可以使用<code>synchronized</code>、<code>wait()</code>和<code>notify()</code>来增加同步块并控制线程的先后顺序防止出现竞选条件。</p>
+</blockquote>
+<p>下面是我使用<strong>Runnable</strong>接口来实现生产者与消费者的例子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span>  <span class="title">runnable_test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        product i = <span class="keyword">new</span> product(<span class="number">10</span>);</span><br><span class="line">        consume targetRunnable_consumer = <span class="keyword">new</span> consume(i);</span><br><span class="line">        produce targetRunnable_producer = <span class="keyword">new</span> produce(i);</span><br><span class="line">        <span class="keyword">new</span> Thread(targetRunnable_consumer, <span class="string">&quot;consumer&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(targetRunnable_producer, <span class="string">&quot;producer1&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(targetRunnable_producer, <span class="string">&quot;producer2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">product</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> i;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">product</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.i = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">consume</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> product i;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">consume</span><span class="params">(product i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.i = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (i) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i.i==<span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        i.wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    i.i--;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName()+<span class="string">&quot; &quot;</span>+i.i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">500</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">produce</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> product i;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">produce</span><span class="params">(product i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.i = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (i) &#123;</span><br><span class="line">                i.notify();</span><br><span class="line">                i.i++;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot; &quot;</span>+i.i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体来说，在<code>synchronized</code>规划的代码块中，他所指定的变量<strong>i</strong>只能有一个线程进行操作。</p>
+<p>而<code>wait()</code>和<code>notify()</code>就类似<strong>PV操作</strong>，某线程如果调用了<code>wait()</code>，他就会陷入阻塞状态直到其他线程调用<code>notify()</code>了才能继续运行。多线程间可以通过这种方式来控制对于公共变量的访问顺序。</p>
+<p>另外，每次使用<code>notify()</code>只会使一个调用了<code>wait()</code>的进程继续工作。如果有多个线程调用了<code>wait()</code>，你想一次性让他们都继续运作，可以使用<code>notifyall()</code>。</p>
+<blockquote>
+<p>值得注意的是，<code>synchronized</code>指定的同步变量不能是封装类，否则同步功能会失效。因为封装类提供了自动装箱的功能，在对封装类进行操作以后其实变量的HashCode已经发生了变化，synchronized自然也不是同一个对象实例，Integer的源码，如下所示：</p>
+</blockquote>
+<blockquote>
+<p><img src="http://dl.iteye.com/upload/picture/pic/137529/c092c1c9-e167-3132-b865-2f4778b7d91b.png" alt="img"></p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.</span> <span class="toc-text">1. 类型转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E6%9D%83%E9%99%90"><span class="toc-number">2.</span> <span class="toc-text">2. 访问控制权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%BB%A7%E6%89%BF%E3%80%81%E6%8E%A5%E5%8F%A3%E5%92%8C%E5%A4%9A%E6%80%81"><span class="toc-number">3.</span> <span class="toc-text">3. 继承、接口和多态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">3.1.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.2.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">3.3.</span> <span class="toc-text">多态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8Collections-sort-%E6%8E%92%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">4. 使用Collections.sort()排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Collections-sort-%E6%8E%92%E5%BA%8F%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">1. Collections.sort()排序原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8Collections-sort-%E6%9D%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">4.2.</span> <span class="toc-text">2. 使用Collections.sort()来排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0Comparable%E6%8E%A5%E5%8F%A3"><span class="toc-number">4.2.1.</span> <span class="toc-text">实现Comparable接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Comparator%E6%AF%94%E8%BE%83%E5%99%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用Comparator比较器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Java%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">5. Java多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">1. 多线程基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thread"><span class="toc-number">5.1.1.</span> <span class="toc-text">Thread</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Runnable"><span class="toc-number">5.1.2.</span> <span class="toc-text">Runnable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8synchronized%E5%85%B3%E9%94%AE%E8%AF%8D%E6%9D%A5%E9%98%B2%E6%AD%A2%E7%BA%BF%E7%A8%8B%E7%AB%9E%E4%BA%89%E5%90%8C%E4%B8%80%E8%B5%84%E6%BA%90"><span class="toc-number">5.2.</span> <span class="toc-text">2. 使用synchronized关键词来防止线程竞争同一资源</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&text=Java基础"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&is_video=false&description=Java基础"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java基础&body=Check out this article: http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&title=Java基础"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2019/10/16/Java%E5%9F%BA%E7%A1%80/&name=Java基础&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 bighead
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'G-28H2E71SQB', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>

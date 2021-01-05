@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="安卓开发中，网络交互是必不可少的。而安卓向后端发送请求的方式有很多种，本篇讲述我使用Http Connection来与后端交互的具体方法和代码。  1. 请求网络权限在AndroidManifest.xml中添加权限 123456789101112131415&lt;!--允许联网 --&gt;&lt;uses-permission android:name&#x3D;&quot;android.per">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android向后端传递数据">
+<meta property="og:url" content="http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="ImBighead">
+<meta property="og:description" content="安卓开发中，网络交互是必不可少的。而安卓向后端发送请求的方式有很多种，本篇讲述我使用Http Connection来与后端交互的具体方法和代码。  1. 请求网络权限在AndroidManifest.xml中添加权限 123456789101112131415&lt;!--允许联网 --&gt;&lt;uses-permission android:name&#x3D;&quot;android.per">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-13T10:46:12.000Z">
+<meta property="article:modified_time" content="2020-04-13T10:46:12.000Z">
+<meta property="article:author" content="bighead">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Android向后端传递数据</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="ImBighead" type="application/atom+xml" />
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">ImBighead</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+          <li><a href="/home/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/13/Android%E8%B0%83%E7%94%A8%E5%85%B6%E4%BB%96%E6%B4%BB%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95%E5%92%8C%E5%8F%98%E9%87%8F%E7%9A%84%E6%96%B9%E6%B3%95/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&text=Android向后端传递数据"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&is_video=false&description=Android向后端传递数据"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android向后端传递数据&body=Check out this article: http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&name=Android向后端传递数据&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AF%B7%E6%B1%82%E7%BD%91%E7%BB%9C%E6%9D%83%E9%99%90"><span class="toc-number">1.</span> <span class="toc-text">1. 请求网络权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">2. 编写网络请求函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">3. 使用网络请求类</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Android向后端传递数据
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ImBighead</span>
+      </span>
+      
+        <i class="fa fa-plus"></i>
+      
+      
+    <div class="postdate">
+        <time datetime="2020-04-13T10:46:12.000Z" itemprop="datePublished">2020-04-13</time>
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa fa-bars"></i>
+        <a class="tag-link-link" href="/categories/frontend/" rel="tag">frontend</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/android/" rel="tag">android</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p> 安卓开发中，网络交互是必不可少的。而安卓向后端发送请求的方式有很多种，本篇讲述我使用Http Connection来与后端交互的具体方法和代码。</p>
+</blockquote>
+<h2 id="1-请求网络权限"><a href="#1-请求网络权限" class="headerlink" title="1. 请求网络权限"></a>1. 请求网络权限</h2><p>在AndroidManifest.xml中添加权限</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--允许联网 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--获取wifi网络状态的信息 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_WIFI_STATE&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.WAKE_LOCK&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--获取sd卡写的权限，用于文件上传和下载--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span> /&gt;</span></span><br><span class="line">&lt;application</span><br><span class="line">	<span class="comment">&lt;!--...--&gt;</span></span><br><span class="line">	android:usesCleartextTraffic=&quot;true&quot;</span><br><span class="line">	<span class="comment">&lt;!--...--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在MainActivity.java中增加如下代码便可在主线程使用联网功能。在练手的时候可以使用，之后建议</p>
+<p>将联网部分单独放在子线程中进行，提高app的流畅度。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    <span class="comment">// 允许联网非多进程</span></span><br><span class="line">    <span class="keyword">if</span> (android.os.Build.VERSION.SDK_INT &gt; <span class="number">9</span>) &#123;</span><br><span class="line">        StrictMode.ThreadPolicy policy = <span class="keyword">new</span> 		StrictMode.ThreadPolicy.Builder().permitAll().build();</span><br><span class="line">        StrictMode.setThreadPolicy(policy);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-编写网络请求函数"><a href="#2-编写网络请求函数" class="headerlink" title="2. 编写网络请求函数"></a>2. 编写网络请求函数</h2><p>下面是我封装的网络请求类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpConnect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String href = <span class="string">&quot;http://***&quot;</span>; <span class="comment">// 请求服务器地址</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String session_value = <span class="string">&quot;&quot;</span>; <span class="comment">// session id</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">sendByGet</span><span class="params">(String href)</span></span>&#123;</span><br><span class="line">        <span class="comment">//get的方式提交就是url拼接的方式</span></span><br><span class="line">        String path = href;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url = <span class="keyword">new</span> URL(path);</span><br><span class="line">            HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span><br><span class="line">            connection.setConnectTimeout(<span class="number">5000</span>);</span><br><span class="line">            connection.setRequestMethod(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line">            connection.setRequestProperty(<span class="string">&quot;Cookie&quot;</span>, session_value); <span class="comment">// 更新session</span></span><br><span class="line">            <span class="comment">//获得结果码</span></span><br><span class="line">            <span class="keyword">int</span> responseCode = connection.getResponseCode();</span><br><span class="line">            <span class="keyword">if</span>(responseCode ==<span class="number">200</span>)&#123;</span><br><span class="line">                <span class="comment">//请求成功 获得返回的流</span></span><br><span class="line">                <span class="keyword">if</span> (connection.getHeaderField(<span class="string">&quot;Set-Cookie&quot;</span>)!=<span class="keyword">null</span>)</span><br><span class="line">                    session_value = connection.getHeaderField(<span class="string">&quot;Set-Cookie&quot;</span>); <span class="comment">// 维护session</span></span><br><span class="line">                InputStream is = connection.getInputStream();</span><br><span class="line">                ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">                <span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                <span class="keyword">while</span> ((len = is.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    baos.write(buffer, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                is.close();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//这样就得到服务器返回的数据了</span></span><br><span class="line">                <span class="keyword">return</span> baos.toString();</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//请求失败</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ProtocolException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">sendByPost</span><span class="params">(String href, String text)</span></span>&#123;</span><br><span class="line">        String path = href;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url = <span class="keyword">new</span> URL(path);</span><br><span class="line">            HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span><br><span class="line">            connection.setConnectTimeout(<span class="number">5000</span>);</span><br><span class="line">            connection.setRequestMethod(<span class="string">&quot;POST&quot;</span>);</span><br><span class="line">            connection.setRequestProperty(<span class="string">&quot;Cookie&quot;</span>, session_value); <span class="comment">// 更新session</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//至少要设置的两个请求头</span></span><br><span class="line">            connection.setRequestProperty(<span class="string">&quot;Content-Type&quot;</span>,<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>);</span><br><span class="line"><span class="comment">//            connection.setRequestProperty(&quot;Content-Length&quot;, data.length()+&quot;&quot;);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//post的方式提交实际上是留的方式提交给服务器</span></span><br><span class="line">            connection.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">            OutputStream outputStream = connection.getOutputStream();</span><br><span class="line">            outputStream.write(text.getBytes());</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获得结果码</span></span><br><span class="line">            <span class="keyword">int</span> responseCode = connection.getResponseCode();</span><br><span class="line"><span class="comment">//            System.out.println(1);</span></span><br><span class="line"><span class="comment">//            System.out.println(responseCode);</span></span><br><span class="line">            <span class="keyword">if</span>(responseCode ==<span class="number">200</span>)&#123;</span><br><span class="line">                <span class="comment">//请求成功</span></span><br><span class="line">                <span class="keyword">if</span> (connection.getHeaderField(<span class="string">&quot;Set-Cookie&quot;</span>)!=<span class="keyword">null</span>)</span><br><span class="line">                    session_value = connection.getHeaderField(<span class="string">&quot;Set-Cookie&quot;</span>); <span class="comment">// 维护session</span></span><br><span class="line">                InputStream is = connection.getInputStream();</span><br><span class="line">                ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">                <span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                <span class="keyword">while</span> ((len = is.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    baos.write(buffer, <span class="number">0</span>, len);</span><br><span class="line">                &#125;</span><br><span class="line">                is.close();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//这样就得到服务器返回的数据了</span></span><br><span class="line">                <span class="keyword">return</span> baos.toString();</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//请求失败</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ProtocolException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，除了基础的设定请求时间，请求头等。如果返回的数据字段有<em>Set-Cookie</em>则还要根据该字段的值来更新类中存放cookie的变量，从而让每次请求都带有每个用户独有的信息方便服务器鉴别用户等，而不用每次都放在数据字段中带来带去。</p>
+<h2 id="3-使用网络请求类"><a href="#3-使用网络请求类" class="headerlink" title="3. 使用网络请求类"></a>3. 使用网络请求类</h2><p>有了上述的网络请求类，我们只需要调用<code>HttpConnect.sendByGet()</code>或者<code>HttpConnect.sendByPost()</code>就可以进行http请求了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 登录验证...&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String login_data_text = HttpConnect.sendByPost(HttpConnect.href+<span class="string">&quot;/android_login/&quot;</span>,                                                       <span class="string">&quot;username=&quot;</span>+number+<span class="string">&quot;&amp;password=&quot;</span>+password);</span><br><span class="line">        <span class="comment">// json转码</span></span><br><span class="line">        Login_data login_data = JSON.parseObject(login_data_text, Login_data.class); </span><br><span class="line">        <span class="keyword">if</span> (login_data.getRe().equals(<span class="string">&quot;Fail&quot;</span>) ) &#123;</span><br><span class="line">            <span class="comment">// 关闭进度条</span></span><br><span class="line">            Message msg = <span class="keyword">new</span> Message();</span><br><span class="line">            msg.what = <span class="number">1</span>;</span><br><span class="line">            handler.sendMessage(msg);</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 创建user_data文件存储用户登录账号方便下次自动登录</span></span><br><span class="line">        SharedPreferences.Editor editor = getSharedPreferences(<span class="string">&quot;user_data&quot;</span>, MODE_PRIVATE).edit();</span><br><span class="line">        editor.putString(<span class="string">&quot;user_number&quot;</span>, number);</span><br><span class="line">        editor.putString(<span class="string">&quot;user_password&quot;</span>, password);</span><br><span class="line">        editor.apply();</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(LoginActivity.<span class="keyword">this</span>, MainActivity.class);</span><br><span class="line">        intent.putExtra(<span class="string">&quot;user_name&quot;</span>, login_data.getName());</span><br><span class="line">        intent.putExtra(<span class="string">&quot;user_number&quot;</span>, login_data.getNumber());</span><br><span class="line"></span><br><span class="line">        startActivity(intent);</span><br><span class="line">        <span class="comment">// 关闭进度条</span></span><br><span class="line">        Message msg = <span class="keyword">new</span> Message();</span><br><span class="line">        msg.what = <span class="number">0</span>;</span><br><span class="line">        handler.sendMessage(msg);</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        finish();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+<p>可以看到在上述代码中，一旦涉及到对于控件的处理，我就会向<code>Handler</code>发送<code> Message</code>。这是因为在安卓中，子线程不能对UI进行操作，UI的操作必须始终在主线程中进行。这样可以防止多线程同时对UI进行操作而产生错误的情况。因此在子线程中必须通过<code>Handler</code>来操作控件。</p>
+<p>具体做法就是新建一个<code>Handler</code>，然后根据传入<code>Handler</code>的<code>Message</code>的值来对相应控件进行操作，比如对于上述登录进程的Handler是这样定义的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Handler handler = <span class="keyword">new</span> Handler(<span class="keyword">new</span> Handler.Callback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">handleMessage</span><span class="params">(<span class="meta">@NonNull</span> Message message)</span> </span>&#123;</span><br><span class="line">        ProgressBar progressBar = findViewById(R.id.loading);</span><br><span class="line">        <span class="keyword">if</span> (message.what==<span class="number">0</span>) &#123;</span><br><span class="line">            Toast toast=Toast.makeText(getApplication(),<span class="string">&quot;登录成功！&quot;</span>,Toast.LENGTH_SHORT);</span><br><span class="line">            toast.show();</span><br><span class="line">            progressBar.setVisibility(View.GONE);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (message.what==<span class="number">1</span>) &#123;</span><br><span class="line">            Toast toast=Toast.makeText(getApplication(),<span class="string">&quot;用户名或密码错误&quot;</span>,Toast.LENGTH_SHORT);</span><br><span class="line">            toast.show();</span><br><span class="line">            progressBar.setVisibility(View.GONE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AF%B7%E6%B1%82%E7%BD%91%E7%BB%9C%E6%9D%83%E9%99%90"><span class="toc-number">1.</span> <span class="toc-text">1. 请求网络权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">2. 编写网络请求函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">3. 使用网络请求类</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&text=Android向后端传递数据"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&is_video=false&description=Android向后端传递数据"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Android向后端传递数据&body=Check out this article: http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&title=Android向后端传递数据"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/&name=Android向后端传递数据&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 bighead
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'G-28H2E71SQB', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>

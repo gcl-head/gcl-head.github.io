@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="二分查找法 二分查找作为在有序集合中寻找指定元素的方法，性能是极其优异的，时间复杂度只有$O(\log(n))$。在算法题中使用可以大幅降低计算资源的消耗。  二分查找的原理就是利用集合的有序性，每次选取给定集合的中间元素与目标元素进行大小的比较。 如果相等则直接返回，如果小于目标元素，则对于右半部分的集合重复上述操作，大于同理。 一直循环到找到元素为止。 最坏情况是到最后都没找到，一直到左右边界">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用算法整理">
+<meta property="og:url" content="http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="ImBighead">
+<meta property="og:description" content="二分查找法 二分查找作为在有序集合中寻找指定元素的方法，性能是极其优异的，时间复杂度只有$O(\log(n))$。在算法题中使用可以大幅降低计算资源的消耗。  二分查找的原理就是利用集合的有序性，每次选取给定集合的中间元素与目标元素进行大小的比较。 如果相等则直接返回，如果小于目标元素，则对于右半部分的集合重复上述操作，大于同理。 一直循环到找到元素为止。 最坏情况是到最后都没找到，一直到左右边界">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-10-16T12:42:32.000Z">
+<meta property="article:modified_time" content="2019-10-16T12:42:32.000Z">
+<meta property="article:author" content="bighead">
+<meta property="article:tag" content="二分查找">
+<meta property="article:tag" content="快速排序">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="背包算法">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>常用算法整理</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="ImBighead" type="application/atom+xml" />
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">ImBighead</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+          <li><a href="/home/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/10/16/LeetCode%E5%88%B7%E9%A2%98/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/10/16/Java%E5%9F%BA%E7%A1%80/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&text=常用算法整理"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&is_video=false&description=常用算法整理"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=常用算法整理&body=Check out this article: http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&name=常用算法整理&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">二分查找法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text">并查集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">背包问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%97%A0%E7%95%8C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">1、无界背包问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%810-1%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">4.2.</span> <span class="toc-text">2、0-1背包问题</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        常用算法整理
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ImBighead</span>
+      </span>
+      
+        <i class="fa fa-plus"></i>
+      
+      
+    <div class="postdate">
+        <time datetime="2019-10-16T12:42:32.000Z" itemprop="datePublished">2019-10-16</time>
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa fa-bars"></i>
+        <a class="tag-link-link" href="/categories/algorithm/" rel="tag">algorithm</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a>, <a class="tag-link-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a>, <a class="tag-link-link" href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag">快速排序</a>, <a class="tag-link-link" href="/tags/%E8%83%8C%E5%8C%85%E7%AE%97%E6%B3%95/" rel="tag">背包算法</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="二分查找法"><a href="#二分查找法" class="headerlink" title="二分查找法"></a>二分查找法</h2><blockquote>
+<p>二分查找作为在有序集合中寻找指定元素的方法，性能是极其优异的，时间复杂度只有$O(\log(n))$。在算法题中使用可以大幅降低计算资源的消耗。</p>
+</blockquote>
+<p>二分查找的原理就是利用集合的有序性，每次选取给定集合的中间元素与目标元素进行大小的比较。</p>
+<p>如果相等则直接返回，如果小于目标元素，则对于右半部分的集合重复上述操作，大于同理。</p>
+<p>一直循环到找到元素为止。</p>
+<p>最坏情况是到最后都没找到，一直到左右边界相等了，才得到目标值。</p>
+<p>下面是二分查找的代码实现样例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">findBoundary</span> <span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 二分查找b在a中的位置</span></span><br><span class="line">    <span class="keyword">if</span> (a.length == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// 空数组</span></span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = a.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (a[mid] == b) <span class="keyword">return</span> mid; <span class="comment">// bingo</span></span><br><span class="line">        <span class="keyword">if</span> (a[mid] &lt; b) &#123; <span class="comment">// b在右边</span></span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> right = mid - <span class="number">1</span>; <span class="comment">// b在左边</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (a[left] == b) <span class="keyword">return</span> left; <span class="comment">// left==right</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// a中无b</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><blockquote>
+<p>快速排序是算法题中常用的排序算法，在大数据量的情况下，他的排序性能要明显高于冒泡排序。</p>
+</blockquote>
+<p>快速排序的基本思想是：通过一趟排序将待排记录分隔成独立的两部分，其中一部分记录的关键字均比另一部分的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序。</p>
+<p>具体地来说：</p>
+<ul>
+<li>从数组中挑出一个元素作为<strong>基准</strong>；</li>
+<li>重新排列数组，让所有比<strong>基准</strong>小的元素排在<strong>基准</strong>前面，其他元素排在<strong>基准</strong>后面；</li>
+<li>递归地对基准左边和右边的子数组再次重复上述步骤直到子数组长度小于等于1时排序结束；</li>
+</ul>
+<p>以下是java实现快速代码的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span> <span class="params">(Integer[] a, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">// 快速排序算法</span></span><br><span class="line">    <span class="keyword">if</span>(right - left &lt;= <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> index = left+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = index; i &lt; right; i++) &#123; <span class="comment">// 小的放基准左边，大的放基准右边</span></span><br><span class="line">        <span class="keyword">if</span>(a[left] &gt; a[i]) &#123;</span><br><span class="line">            swap(a, index, i);</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(a, index-<span class="number">1</span>, left);</span><br><span class="line">  	<span class="comment">// 递归</span></span><br><span class="line">    sort(a, left, index);</span><br><span class="line">    sort(a, index, right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span> <span class="params">(Integer[] a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 交换a[i]和a[j]</span></span><br><span class="line">    Integer c = a[i];</span><br><span class="line">    a[i] = a[j];</span><br><span class="line">    a[j] = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><blockquote>
+<p><strong>并查集</strong>是一种树型的数据结构，用于处理一些不交集（Disjoint Sets）的合并及查询问题。</p>
+</blockquote>
+<p><strong>并查集森林</strong>是一种集合的数据结构。其中每个节点都保存着它的父节点的引用。</p>
+<p>在<strong>并查集森林</strong>中，每个分类的代表是该分类的<strong>根节点</strong>，即不断地寻找给定节点的父节点，直到找到父节点是其本身的根节点。</p>
+<p>一开始，<strong>并查集森林</strong>中所有节点的父节点都是它本身，即所有节点都是根节点，然后每次”联合“，便需要将两个节点的根节点的其中一个的父节点指向另一个节点。</p>
+<p>下述代码直接使用数组作为<strong>并查集森林</strong>的表示结构:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化并查集森林</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span>[] friend)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> f = <span class="number">0</span>; f &lt; friend.length; f++) &#123;</span><br><span class="line">    friend[f] = f;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获得祖先</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getParent</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span>[] friend)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> f = friend[i];</span><br><span class="line">    <span class="keyword">if</span>(f == i) <span class="keyword">return</span> i;</span><br><span class="line">    <span class="keyword">return</span> getParent(f, friend);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 建立朋友</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addFriend</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span>[] friend)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ii = getParent(i, friend);</span><br><span class="line">    <span class="keyword">int</span> jj = getParent(j, friend);</span><br><span class="line">    <span class="keyword">if</span>(ii == jj) <span class="keyword">return</span>;</span><br><span class="line">    friend[ii] = jj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述方法虽然可以实现最基础的<strong>并查集</strong>，但效率并比链表高。</p>
+<p>比较常见的优化方法之一是<strong>路径优化</strong>，即在每次查找祖先的时候都将所有子节点的父节点直接指向祖先节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得祖先</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getParent</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span>[] friend)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> f = friend[i];</span><br><span class="line">    <span class="keyword">if</span>(f != i) friend[i] = getParent(f,friend);</span><br><span class="line">    <span class="keyword">return</span> friend[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h2><blockquote>
+<p><strong>背包问题</strong>（Knapsack problem）是一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BB%84%E5%90%88%E4%BC%98%E5%8C%96">组合优化</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/NP%E5%AE%8C%E5%85%A8">NP完全</a>问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。问题的名称来源于如何选择最合适的物品放置于给定背包中。</p>
+</blockquote>
+<h3 id="1、无界背包问题"><a href="#1、无界背包问题" class="headerlink" title="1、无界背包问题"></a>1、无界背包问题</h3><blockquote>
+<p>我们有n种物品，物品j的重量为wj，价格为pj。</p>
+<p>我们假定所有物品的重量和价格都是非负的。背包所能承受的最大重量为W。</p>
+<p>问在最大重量可达到的最高总价值？</p>
+</blockquote>
+<p>解决思路是从总重量不超过Y的最高价值$A(Y)$开始计算，不断提高Y最终得到$A(W)$。</p>
+<ul>
+<li>$A(0) = 0$</li>
+<li>$A(Y) = max{ A(Y - 1), { pj + A(Y - wj) | wj ≤ Y } }$</li>
+</ul>
+<p>上述公式即:</p>
+<ol>
+<li><p>首先初始化$Y=0$的情况；</p>
+</li>
+<li><p>然后对于$Y + 1$，遍历所有物品；</p>
+</li>
+<li><p>对于每个物品，如果他的重量小于等于Y，则计算他放入背包后的总价值为<strong>物品价值</strong>加上<strong>总重量Y减去物品价值后的最高价值</strong>；</p>
+</li>
+<li><p>求得所有物品情况的最大总价值，并和总重量为Y的最高价值相比较，取最大值，作为总重量为$Y + 1$的最大价值；</p>
+</li>
+<li><p>重复步骤2~4，不断提高Y，直到$Y==W$，则算法结束，得到最高价值$A(W)$。</p>
+</li>
+</ol>
+<p>下面是java代码的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> WEIGHT = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span>[] init() &#123;</span><br><span class="line">    <span class="comment">// 初始化重量为0的情况</span></span><br><span class="line">    <span class="keyword">int</span>[] bag = <span class="keyword">new</span> <span class="keyword">int</span>[WEIGHT+<span class="number">1</span>];</span><br><span class="line">    bag[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> bag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bag</span><span class="params">(<span class="keyword">int</span>[] bag, <span class="keyword">int</span>[] w, <span class="keyword">int</span>[] p)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 背包问题解法</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= WEIGHT; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>; <span class="comment">// 第四步的最大总价值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; w[j]) <span class="keyword">continue</span>;</span><br><span class="line">            max = Math.max(p[j] + bag[i-w[j]], max);</span><br><span class="line">        &#125;</span><br><span class="line">        bag[i] = Math.max(bag[i-<span class="number">1</span>], max);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h3 id="2、0-1背包问题"><a href="#2、0-1背包问题" class="headerlink" title="2、0-1背包问题"></a>2、0-1背包问题</h3><blockquote>
+<p> 我们有n种物品，物品j的重量为wj，价格为pj。</p>
+<p>我们假定所有物品的重量和价格都是非负的。背包所能承受的最大重量为W。</p>
+<p>规定每种物品只能选0个或者1个。</p>
+<p>问在最大重量可达到的最高总价值？</p>
+</blockquote>
+<p>解决思路也是从总重量不超过Y的最高价值$A(Y)$开始计算，不断提高Y最终得到$A(W)$。</p>
+<p>只是对于每个$A(Y)$，需要依次计算前j种物品的最高总价值$A(Y, j)$</p>
+<ul>
+<li>$A(Y, 0) = 0$</li>
+<li>如果$wj &gt; Y$, $A(Y, j) = A(Y, j - 1)$</li>
+<li>如果$wj ≤ Y, A(Y, j) = max { A(Y, j - 1), pj + A(Y - wj, j - 1) }$</li>
+</ul>
+<p>上述公式即:</p>
+<ol>
+<li>首先初始化Y从0到W的所有前1种物品的最高价值，即$A(0, 1)$到$A(W, 1)$；</li>
+<li>然后将Y从0到W进行遍历；</li>
+<li>对于每个Y，遍历前2到前$w.length$种物品的情况，即$A(Y, 2)$到$A(Y, w.length)$；</li>
+<li>对于总重量为Y、前i种物品的情况。如果第i种物品的重量$w(i)$小于等于总重量Y，则该情况的最大总价值$A(Y, i)$为前$i-1$种物品的的情况$A(Y, i-1)$和第i种物品价值加上<strong>总重量去除wi的前$i - 1$中物品的最高价值</strong>$A(Y - wi, i - 1)$</li>
+<li>2~4步骤的双重遍历完成后便得到了最终的最高价值$A(W, w.length)$</li>
+</ol>
+<p>下面是java代码的实现:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> WEIGHT = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span>[][] init(<span class="keyword">int</span>[] w, <span class="keyword">int</span>[] p) &#123;</span><br><span class="line">    <span class="comment">// 初始化前1种物品的情况的情况</span></span><br><span class="line">    <span class="keyword">int</span>[][] bag = <span class="keyword">new</span> <span class="keyword">int</span>[WEIGHT+<span class="number">1</span>][w.length];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= WEIGHT; i++) &#123;</span><br><span class="line">        bag[i][<span class="number">0</span>] = i &gt;= w[<span class="number">0</span>] ? p[<span class="number">0</span>] : <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bag</span><span class="params">(<span class="keyword">int</span>[][] bag, <span class="keyword">int</span>[] w, <span class="keyword">int</span>[] p)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 背包问题解法</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= WEIGHT; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; w.length; j++) &#123;</span><br><span class="line">            bag[i][j] = i &gt;= w[j] ? Math.max(bag[i][j-<span class="number">1</span>], p[j] + bag[i-w[j]][j-<span class="number">1</span>]) : bag[i][j-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bag[WEIGHT][w.length-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">二分查找法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text">并查集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">背包问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%97%A0%E7%95%8C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">1、无界背包问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%810-1%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-number">4.2.</span> <span class="toc-text">2、0-1背包问题</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&text=常用算法整理"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&is_video=false&description=常用算法整理"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=常用算法整理&body=Check out this article: http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&title=常用算法整理"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2019/10/16/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/&name=常用算法整理&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 bighead
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'G-28H2E71SQB', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>

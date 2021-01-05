@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="在python中，json字符串和变量的转换是非常自然和简单的，只需要使用json.dumps()和json.loads()就可以进行转码和解码的操作。然而在按照或中转码和解码都是较为复杂的。  1. Json解码对于较为简单的数据格式，我们可以直接使用com.alibaba.fastjson工具包。 安装依赖：implementation ‘com.alibaba:fastjson:1.1.5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Json数据转换">
+<meta property="og:url" content="http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="ImBighead">
+<meta property="og:description" content="在python中，json字符串和变量的转换是非常自然和简单的，只需要使用json.dumps()和json.loads()就可以进行转码和解码的操作。然而在按照或中转码和解码都是较为复杂的。  1. Json解码对于较为简单的数据格式，我们可以直接使用com.alibaba.fastjson工具包。 安装依赖：implementation ‘com.alibaba:fastjson:1.1.5">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-13T09:58:14.000Z">
+<meta property="article:modified_time" content="2020-04-13T09:58:14.000Z">
+<meta property="article:author" content="bighead">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="json">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Json数据转换</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="ImBighead" type="application/atom+xml" />
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">ImBighead</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+          <li><a href="/home/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/13/Android%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/12/%E6%A0%A1%E5%9B%AD%E6%AF%8F%E6%97%A5%E4%B8%80%E6%8A%A5%E8%87%AA%E5%8A%A8%E5%A1%AB%E6%8A%A5%E8%84%9A%E6%9C%AC/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&text=Json数据转换"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&is_video=false&description=Json数据转换"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Json数据转换&body=Check out this article: http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&name=Json数据转换&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Json%E8%A7%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">1. Json解码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Json%E8%BD%AC%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">2. Json转码</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Json数据转换
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ImBighead</span>
+      </span>
+      
+        <i class="fa fa-plus"></i>
+      
+      
+    <div class="postdate">
+        <time datetime="2020-04-13T09:58:14.000Z" itemprop="datePublished">2020-04-13</time>
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa fa-bars"></i>
+        <a class="tag-link-link" href="/categories/frontend/" rel="tag">frontend</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/android/" rel="tag">android</a>, <a class="tag-link-link" href="/tags/json/" rel="tag">json</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>在python中，json字符串和变量的转换是非常自然和简单的，只需要使用<code>json.dumps()</code>和<code>json.loads()</code>就可以进行转码和解码的操作。然而在按照或中转码和解码都是较为复杂的。</p>
+</blockquote>
+<h2 id="1-Json解码"><a href="#1-Json解码" class="headerlink" title="1. Json解码"></a>1. Json解码</h2><p>对于较为简单的数据格式，我们可以直接使用<code>com.alibaba.fastjson</code>工具包。</p>
+<p>安装依赖：<code>implementation ‘com.alibaba:fastjson:1.1.54.android’</code></p>
+<p>首先我们要根据传递的数据格式构建一个对应的类，注意一定要定义空的构造函数哦~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo_001.data_form;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Login_data</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String re;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Login_data</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 空构造函数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Login_data</span><span class="params">(String number, String name, String re)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.re = re;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNumber</span><span class="params">(String number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> re;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRe</span><span class="params">(String re)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.re = re;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后就可以使用<code>JSON.parseObject()</code>或<code>JSON.parseArray()</code>对json字符串进行解码操作了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Login_data login_data = JSON.parseObject(login_data_text, Login_data.class);</span><br><span class="line">List&lt;Login_data&gt; login_datas = JSON.parseArray(login_data_text, Login_data.class);</span><br></pre></td></tr></table></figure>
+<p>而对于比较复杂的数据结构，比如某个变量是列表的数据结构。上述方法往往无法成功进行解码。这时候就需要手动解析数据结构。<code>fastjson</code>提供<code>getString()</code>方法(即<code>get().toString()</code>)来从<code>JSONObject</code>对象中提取指定字段的值(通过冒号来判定)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">List&lt;JSONObject&gt; pre_classes_array = JSON.parseArray(pre_classes_text, JSONObject.class);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pre_classes_array.size(); i++) &#123;</span><br><span class="line">    String class_name = pre_classes_array.get(i).getString(<span class="string">&quot;class_name&quot;</span>);</span><br><span class="line">    <span class="keyword">int</span> id = Integer.parseInt(pre_classes_array.get(i).getString(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">    ArrayList&lt;String&gt; number = <span class="keyword">new</span> ArrayList&lt;&gt;(JSON.parseArray(pre_classes_array.get(i)</span><br><span class="line">            .getString(<span class="string">&quot;number&quot;</span>), String.class));</span><br><span class="line">    ArrayList&lt;String&gt; name = <span class="keyword">new</span> ArrayList&lt;&gt;(JSON.parseArray(pre_classes_array.get(i)</span><br><span class="line">            .getString(<span class="string">&quot;name&quot;</span>), String.class));</span><br><span class="line">    pre_classes[i] = <span class="keyword">new</span> Pre_class(id, class_name, number, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Pre_class 结构</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pre_class</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String class_name;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; number;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pre_class</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pre_class</span><span class="params">(<span class="keyword">int</span> id, String class_name, ArrayList&lt;String&gt; number, ArrayList&lt;String&gt; name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.class_name = class_name;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pre_class</span><span class="params">(String class_name, String[] number, String[] name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.class_name = class_name;</span><br><span class="line">        <span class="keyword">this</span>.number = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(number));</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(name));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getClass_name</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> class_name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title">getNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取指定索引的学生信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;String&gt; <span class="title">getStudent</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; a = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        a.add(number.get(i));</span><br><span class="line">        a.add(name.get(i));</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取整个预设班级的学生列表</span></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;String&gt;&gt; getStudents() &#123;</span><br><span class="line">        ArrayList&lt;ArrayList&lt;String&gt;&gt; a = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; name.size(); i++) &#123;</span><br><span class="line">            ArrayList&lt;String&gt; b = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            b.add(number.get(i));</span><br><span class="line">            b.add(name.get(i));</span><br><span class="line">            a.add(b);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-Json转码"><a href="#2-Json转码" class="headerlink" title="2. Json转码"></a>2. Json转码</h2><p>相对于解码的复杂，转码就十分轻松了。我推荐使用Gson来进行。</p>
+<p>首先添加依赖<code>implementation &#39;com.google.code.gson:gson:2.8.5&#39;</code>。</p>
+<p>然后调用<code>toJson()</code>来进行转码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">String strJson = gson.toJson(pre_class);</span><br></pre></td></tr></table></figure>
+<hr>
+<p>有了json的解码和转码方法， 就可以在前后端交互中使用一些具有复杂或者自定义结构的数据了，大大提高了开发的便利性。</p>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Json%E8%A7%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">1. Json解码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Json%E8%BD%AC%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">2. Json转码</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&text=Json数据转换"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&is_video=false&description=Json数据转换"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Json数据转换&body=Check out this article: http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&title=Json数据转换"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/04/13/Json%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/&name=Json数据转换&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 bighead
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'G-28H2E71SQB', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>

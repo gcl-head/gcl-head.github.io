@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前两天我从家里翻出了尘封已久的IPAD2，想要有个大屏幕玩手游。结果发现，别说想要玩的手游了，连炉石传说都打不开，只能勉强看看片，时代的眼泪啊。于是算上IPAD，我已经有了平板、手机、笔记本和台式机四样常用的电子设备了。虽然苹果设备之间可以通过airdrop方便地传递数据，但我的IPAD2太古老，并没有这个功能，再加上在家都是用台式机进行工作，为了传输文件特地打开mac很不方便。所以就萌生了在家">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建局域网私人网盘">
+<meta property="og:url" content="http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/index.html">
+<meta property="og:site_name" content="ImBighead">
+<meta property="og:description" content="前两天我从家里翻出了尘封已久的IPAD2，想要有个大屏幕玩手游。结果发现，别说想要玩的手游了，连炉石传说都打不开，只能勉强看看片，时代的眼泪啊。于是算上IPAD，我已经有了平板、手机、笔记本和台式机四样常用的电子设备了。虽然苹果设备之间可以通过airdrop方便地传递数据，但我的IPAD2太古老，并没有这个功能，再加上在家都是用台式机进行工作，为了传输文件特地打开mac很不方便。所以就萌生了在家">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E9%85%8D%E7%BD%AEwampserver.png">
+<meta property="og:image" content="https://exp-picture.cdn.bcebos.com/988e1c532f6323858153ba22cce833e038725df8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1">
+<meta property="og:image" content="https://exp-picture.cdn.bcebos.com/506d92f1d8a7263330e19550c02c56ee7a7f44f8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1">
+<meta property="og:image" content="https://exp-picture.cdn.bcebos.com/cca2552c56ee7b7ffb6b24c66ef4fcf5ef0d41f8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1">
+<meta property="og:image" content="https://exp-picture.cdn.bcebos.com/e4b5e2f5ee0d3ace29b22ad887e265e7350fbbf8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1">
+<meta property="og:image" content="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E6%89%93%E5%BC%80Owncloud.png">
+<meta property="og:image" content="https://exp-picture.cdn.bcebos.com/65390a23beb9763eada7e3656ad06de89b61b0f8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1">
+<meta property="og:image" content="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99.png">
+<meta property="og:image" content="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E5%85%81%E8%AE%B8%E5%BA%94%E7%94%A8%E9%80%9A%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99.png">
+<meta property="og:image" content="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/403.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190607163907636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyMjM5NzY3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190607163918495.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyMjM5NzY3,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-06-12T11:55:19.000Z">
+<meta property="article:modified_time" content="2020-06-12T11:55:19.000Z">
+<meta property="article:author" content="bighead">
+<meta property="article:tag" content="网盘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E9%85%8D%E7%BD%AEwampserver.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>搭建局域网私人网盘</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="ImBighead" type="application/atom+xml" />
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">ImBighead</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+          <li><a href="/home/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/15/JavaScript%E5%9F%BA%E7%A1%80/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&text=搭建局域网私人网盘"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&is_video=false&description=搭建局域网私人网盘"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=搭建局域网私人网盘&body=Check out this article: http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&name=搭建局域网私人网盘&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1. 相关软件下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Wampserver%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">2. Wampserver配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-OwnCloud%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">3. OwnCloud配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%B1%80%E5%9F%9F%E7%BD%91%E5%8F%AF%E8%AE%BF%E9%97%AE"><span class="toc-number">4.</span> <span class="toc-text">4. 局域网可访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">5. 可能遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="toc-number">6.</span> <span class="toc-text">6. 外网访问</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        搭建局域网私人网盘
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ImBighead</span>
+      </span>
+      
+        <i class="fa fa-plus"></i>
+      
+      
+    <div class="postdate">
+        <time datetime="2020-06-12T11:55:19.000Z" itemprop="datePublished">2020-06-12</time>
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa fa-bars"></i>
+        <a class="tag-link-link" href="/categories/projects/" rel="tag">projects</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%BD%91%E7%9B%98/" rel="tag">网盘</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>前两天我从家里翻出了尘封已久的IPAD2，想要有个大屏幕玩手游。结果发现，别说想要玩的手游了，连炉石传说都打不开，只能勉强看看片，时代的眼泪啊。于是算上IPAD，我已经有了平板、手机、笔记本和台式机四样常用的电子设备了。虽然苹果设备之间可以通过airdrop方便地传递数据，但我的IPAD2太古老，并没有这个功能，再加上在家都是用台式机进行工作，为了传输文件特地打开mac很不方便。所以就萌生了在家中搭建一个私人网盘的想法，因为在局域网中搭建，因此速度的上限就是路由器的上限，传输文件非常快。</p>
+</blockquote>
+<h2 id="1-相关软件下载安装"><a href="#1-相关软件下载安装" class="headerlink" title="1. 相关软件下载安装"></a>1. 相关软件下载安装</h2><p>涉及软件主要有两款：</p>
+<ul>
+<li>Wampserver</li>
+<li>OwnCloud</li>
+</ul>
+<p>首先下载Wampserver，以下是<a target="_blank" rel="noopener" href="http://www.wampserver.com/en/">Wampserver官网</a>。</p>
+<p>OwnCloud最后一个支持Windows的版本是8.0.16，可前往<a target="_blank" rel="noopener" href="https://owncloud.org/download/older-versions/">OwnCloud官网</a>自行下载。</p>
+<p><strong>OwnCloud下载完之后将内容解压至Wampserver安装目录下的www文件夹中,默认安装地址为<code>C:\wamp64\www</code>。</strong></p>
+<h2 id="2-Wampserver配置"><a href="#2-Wampserver配置" class="headerlink" title="2. Wampserver配置"></a>2. Wampserver配置</h2><p>启动Wampserver，左键右下角图标，进入phpMyAdmin。</p>
+<p><img src="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E9%85%8D%E7%BD%AEwampserver.png" alt="配置wampserver"></p>
+<p>默认账号是root，默认密码为空。如果需要修改密码，可以在账户栏中的root用户处修改权限。</p>
+<p><img src="https://exp-picture.cdn.bcebos.com/988e1c532f6323858153ba22cce833e038725df8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1" alt="windows下用owncloud搭建私有云"></p>
+<p>接下来在数据库栏中为ownCloud添加数据表。</p>
+<p><img src="https://exp-picture.cdn.bcebos.com/506d92f1d8a7263330e19550c02c56ee7a7f44f8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1" alt="windows下用owncloud搭建私有云"></p>
+<p>然后在Wampserver中添加ownCloud服务并配置服务器名称和路径，如下图。</p>
+<p><img src="https://exp-picture.cdn.bcebos.com/cca2552c56ee7b7ffb6b24c66ef4fcf5ef0d41f8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1" alt="windows下用owncloud搭建私有云"><img src="https://exp-picture.cdn.bcebos.com/e4b5e2f5ee0d3ace29b22ad887e265e7350fbbf8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1" alt="windows下用owncloud搭建私有云"></p>
+<p>最后重启所有服务，启动ownCloud</p>
+<h2 id="3-OwnCloud配置"><a href="#3-OwnCloud配置" class="headerlink" title="3. OwnCloud配置"></a>3. OwnCloud配置</h2><p>我们可以直接在浏览器中输入<code>owncloud/</code>进入ownCloud或者点击右下角图标从菜单栏进入，如下图所示。</p>
+<p><img src="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E6%89%93%E5%BC%80Owncloud.png" alt="打开Owncloud"></p>
+<p>第一次进入ownCloud可以设置管理员用户名和密码以及云盘的本地文件夹位置，如下图。</p>
+<p><img src="https://exp-picture.cdn.bcebos.com/65390a23beb9763eada7e3656ad06de89b61b0f8.jpg?x-bce-process=image/resize,m_lfit,w_500,limit_1" alt="windows下用owncloud搭建私有云"></p>
+<h2 id="4-局域网可访问"><a href="#4-局域网可访问" class="headerlink" title="4. 局域网可访问"></a>4. 局域网可访问</h2><p>完成了前三步，我们已经可以在本地访问部署完成的ownCloud云盘了。但我的目的是想要在不同设备间传输和共享文件，因此还需要实现云盘的局域网可访问。</p>
+<p>首先，需要让ownCloud暴露在局域网中可被访问到。</p>
+<p>有两种方式，第一种简单粗暴，将防火墙关闭，如下图。</p>
+<p><img src="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99.png" alt="关闭防火墙"></p>
+<p>第二种方式更加优雅，如果你无法忍受右下角由于长期关闭防火墙而一直显示红叉的话，可以单独允许Apache通过防火墙。点击防火墙和网络保护页面中的<strong>允许应用通过防火墙</strong>。</p>
+<p><img src="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/%E5%85%81%E8%AE%B8%E5%BA%94%E7%94%A8%E9%80%9A%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99.png" alt="允许应用通过防火墙"></p>
+<p>然后点击<strong>更改设置</strong>，再点击<strong>允许其他应用</strong>。找到apache安装目录下bin文件中的httpd.exe文件，点击添加，点击确定。默认安装位置的httpd.exe在如下文件路径下，<code>C:\wamp64\bin\apache\apache2.4.41\bin</code>。</p>
+<p>现在，你的ownCloud已经可以在局域网中被访问了，但是会返回403错误。</p>
+<p><img src="https://blogic-1256965470.cos.ap-shanghai.myqcloud.com/blog/403.png" alt="403"></p>
+<p>这种情况需要配置apache的配置文件，对于默认安装路径在如下路径中修改vhosts文件，<code>C:\wamp64\bin\apache\apache2.4.41\conf\extra</code>。</p>
+<p>将<strong>Require local</strong>改写成<strong>Require all granted</strong>。</p>
+<p>接下来便可正常访问了，如出现<strong>信任域</strong>问题，按照图中要求进行修改即可。</p>
+<p>用户只需要在浏览器中输入主机的ip地址和ownCloud即可进入网盘，如<code>192.168.3.3/owncloud/</code>。</p>
+<h2 id="5-可能遇到的问题"><a href="#5-可能遇到的问题" class="headerlink" title="5. 可能遇到的问题"></a>5. 可能遇到的问题</h2><ul>
+<li><p><img src="https://img-blog.csdnimg.cn/20190607163907636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyMjM5NzY3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>遇到上图的情况，说明ownCloud的版本过高，须安装本博客推荐的8.0.16或者更低的支持Windows的版本。</p>
+</li>
+<li><p><img src="https://img-blog.csdnimg.cn/20190607163918495.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyMjM5NzY3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>遇到上述情况，是因为Apache和OwnCloud的版本不吻合。虽然建议是升级ownCloud，但由于，当前版本已经是支持Windows的最高版本了，因此我们可以反向降低Apache的版本来让两个软件的版本吻合。</p>
+</li>
+<li><p>加入你在上传或者下载或者打开网盘的某个文件的时候出现问题，则应该首先检查该文件路径中是否包含中文，由于ownCloud和Windows用的utf编码不同，因此只支持英文，这可以说是ownCloud最遗憾的地方了。你需要将相关的中文路径都用英文表示才可以正常使用ownCloud。</p>
+</li>
+</ul>
+<h2 id="6-外网访问"><a href="#6-外网访问" class="headerlink" title="6. 外网访问"></a>6. 外网访问</h2><p>本文只实现了局域网访问，但如果读者对于自己订制可以互联网访问的云盘有需求的话，我有以下路线可供参考。</p>
+<ul>
+<li>在服务器搭建。想要外网访问，最简单的方式就是在服务器搭建云盘项目。但服务器往往是Linux系统，需要读者自行去搜索Linux下搭建云盘的文档进行学习。</li>
+<li>DDNS。市场上较为先进的路由器（如博主所用的凌霄四核）或猫都有DDNS的功能，即动态域名服务，能够实现将域名绑定到动态的ip上让外网访问。当然，这需要用户拥有公网ip，且需要将猫调整为直连模式或者使用猫来进行DDNS才行。</li>
+<li>内网穿透。当用户没有公网ip或家中有机顶盒要给电视使用无法将猫调为直连模式时，可以采用这种方式，通过第三方服务器作为互联网和本地的转接站，典型的有<a target="_blank" rel="noopener" href="https://hsk.oray.com/">花生壳</a>等。但这种方式的传输速度上限是取决于内网穿透服务器的带宽的，因此往往需要一定的花费来提高内网穿透服务器带宽。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1. 相关软件下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Wampserver%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">2. Wampserver配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-OwnCloud%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">3. OwnCloud配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%B1%80%E5%9F%9F%E7%BD%91%E5%8F%AF%E8%AE%BF%E9%97%AE"><span class="toc-number">4.</span> <span class="toc-text">4. 局域网可访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">5. 可能遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="toc-number">6.</span> <span class="toc-text">6. 外网访问</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&text=搭建局域网私人网盘"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&is_video=false&description=搭建局域网私人网盘"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=搭建局域网私人网盘&body=Check out this article: http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&title=搭建局域网私人网盘"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2020/06/12/%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98/&name=搭建局域网私人网盘&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 bighead
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'G-28H2E71SQB', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>

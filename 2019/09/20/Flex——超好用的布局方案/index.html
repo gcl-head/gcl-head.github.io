@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="对齐、居中是我写前端的时候最头疼的两件事情，要实现这两个功能，还要保证一定的兼容性是很复杂的事情，网上有很多实现对齐的文章，让人看得头晕目眩。 有了Flex，一切都不一样了，我们再也不用把生命浪费在‘垂直居中’上了！  使用flex布局123456.xxx&amp;#123;  display: flex;&amp;#125;.xxx&amp;#123;  display: inline-flex; &#x2F;* 行内也可以使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flex——超好用的布局方案">
+<meta property="og:url" content="http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="ImBighead">
+<meta property="og:description" content="对齐、居中是我写前端的时候最头疼的两件事情，要实现这两个功能，还要保证一定的兼容性是很复杂的事情，网上有很多实现对齐的文章，让人看得头晕目眩。 有了Flex，一切都不一样了，我们再也不用把生命浪费在‘垂直居中’上了！  使用flex布局123456.xxx&amp;#123;  display: flex;&amp;#125;.xxx&amp;#123;  display: inline-flex; &#x2F;* 行内也可以使">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-09-20T10:08:10.000Z">
+<meta property="article:modified_time" content="2019-09-20T10:08:10.000Z">
+<meta property="article:author" content="bighead">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="flex">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Flex——超好用的布局方案</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+    
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="ImBighead" type="application/atom+xml" />
+    
+    <!-- jquery -->
+    
+<script src="/lib/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div class="banner">
+<div id="blogtitel" class="blogtitel">ImBighead</div>
+<ul id="wrapper" class="wrapper">
+  <div class="sun">
+    <div class="star"></div>
+  </div>
+  <div class="mercury">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="venus">
+    <div class="planet">
+      <div class="shadow"></div>
+    </div>
+  </div>
+  <div class="earth">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="mars">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+  <div class="jupiter">
+    <div class="planet"><div class="shadow"></div></div>
+  </div>
+</ul>
+</div>
+
+    <div class="background">
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+          <li><a href="/home/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/tags/">Tag</a></li>
+        
+          <li><a href="/categories/">Category</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/09/30/%E5%89%91%E6%8C%87offer%E5%88%B7%E9%A2%98/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/09/20/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&text=Flex——超好用的布局方案"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&is_video=false&description=Flex——超好用的布局方案"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flex——超好用的布局方案&body=Check out this article: http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&name=Flex——超好用的布局方案&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8flex%E5%B8%83%E5%B1%80"><span class="toc-number">1.</span> <span class="toc-text">使用flex布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">容器属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">项目属性</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+      
+      <div class="content index width mx-auto px2 my4">
+          
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Flex——超好用的布局方案
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ImBighead</span>
+      </span>
+      
+        <i class="fa fa-plus"></i>
+      
+      
+    <div class="postdate">
+        <time datetime="2019-09-20T10:08:10.000Z" itemprop="datePublished">2019-09-20</time>
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa fa-bars"></i>
+        <a class="tag-link-link" href="/categories/frontend/" rel="tag">frontend</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/css/" rel="tag">css</a>, <a class="tag-link-link" href="/tags/flex/" rel="tag">flex</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>对齐、居中是我写前端的时候最头疼的两件事情，要实现这两个功能，还要保证一定的兼容性是很复杂的事情，网上有很多实现对齐的文章，让人看得头晕目眩。</p>
+<p>有了Flex，一切都不一样了，我们再也不用把生命浪费在‘垂直居中’上了！</p>
+</blockquote>
+<h2 id="使用flex布局"><a href="#使用flex布局" class="headerlink" title="使用flex布局"></a>使用flex布局</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.xxx</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.xxx</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-flex; <span class="comment">/* 行内也可以使用flex布局 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>值</th>
+<th>常用值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>flex-direction</td>
+<td>项目排列方向</td>
+<td>row(默认)、row-reverse、column、column-reverse</td>
+<td>row / column</td>
+</tr>
+<tr>
+<td>flex-wrap</td>
+<td>项目是否换行</td>
+<td>nowrap(默认)、wrap、wrap-reverse</td>
+<td>wrap（允许换行）</td>
+</tr>
+<tr>
+<td>justify-content</td>
+<td>水平对齐方向</td>
+<td>flex-start(默认)、flex-end、center、space-between、space-around</td>
+<td>center(<strong>水平居中</strong>)/ space-around(等间距布局)</td>
+</tr>
+<tr>
+<td>align-items</td>
+<td>垂直对齐方向</td>
+<td>flex-start、flex-end、center、baseline、stretch(默认: 占满整个容器的高度)</td>
+<td>center(<strong>垂直居中</strong>)</td>
+</tr>
+</tbody></table>
+<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>值</th>
+<th>常用值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>order</td>
+<td>项目排列顺序，越小越靠前</td>
+<td>0(默认)、1、2…</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>flex</td>
+<td><code>flex-grow</code>, <code>flex-shrink</code> 和 <code>flex-basis</code>的简写，<br />后两个属性可选，一般只用第一个属性，表示项目<br />放大比例，类似栅格。</td>
+<td>0 0 auto(默认)…</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>align-self</td>
+<td>允许单个项目有与其他项目不一样的对齐方式，可覆盖<code>align-items</code>属性</td>
+<td>flex-start、flex-end、center、baseline、stretch</td>
+<td></td>
+</tr>
+</tbody></table>
+
+  </div>
+</article>
+
+
+
+      </div>
+      
+       <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8flex%E5%B8%83%E5%B1%80"><span class="toc-number">1.</span> <span class="toc-text">使用flex布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">容器属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">项目属性</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&text=Flex——超好用的布局方案"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&is_video=false&description=Flex——超好用的布局方案"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flex——超好用的布局方案&body=Check out this article: http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&title=Flex——超好用的布局方案"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2019/09/20/Flex%E2%80%94%E2%80%94%E8%B6%85%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B8%83%E5%B1%80%E6%96%B9%E6%A1%88/&name=Flex——超好用的布局方案&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+      
+      <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 bighead
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/home/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/gcl-head/hexo-blog">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+      <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'G-28H2E71SQB', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+    </div>
+</body>
+</html>
